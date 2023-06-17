@@ -104,13 +104,14 @@
 }
 .group-inner,
 .rectangle-group {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 293.62px;
   height: 185px;
 }
 .group-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
   border-radius: 14px;
   background-color: var(--color-thistle);
 }
@@ -132,24 +133,13 @@
   width: 293.62px;
   height: 71px;
 }
-.group-child1,
-.rectangle-container,
 .rectangle-icon {
   position: absolute;
   top: 0;
-  left: 357.67px;
-  width: 293.62px;
-  height: 185px;
-}
-.group-child1,
-.rectangle-icon {
   left: 0.98px;
   border-radius: var(--br-mini);
   width: 292.64px;
-}
-.group-child1 {
-  left: 358.65px;
-  width: 268.01px;
+  height: 185px;
 }
 .sentiment-analysis {
   position: absolute;
@@ -161,36 +151,53 @@
   height: 36px;
 }
 .vector-parent {
-  position: absolute;
-  top: 0;
-  left: 715.34px;
-  width: 626.66px;
+  position: relative;
+  width: 293.66px;
   height: 185px;
 }
-.detects-the-number,
+.group-child1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: var(--br-mini);
+  width: 268.01px;
+  height: 185px;
+}
+.detects-the-number-container,
 .speaker-labels {
   position: absolute;
   top: 39px;
-  left: 1074px;
+  left: 0.01px;
   font-weight: 500;
   display: inline-block;
   width: 268.01px;
   height: 40px;
 }
-.detects-the-number {
+.detects-the-number-container {
   top: 75px;
-  left: 1073.99px;
+  left: 0;
   font-size: var(--font-size-base);
   font-weight: 300;
   height: 83px;
 }
+.vector-group {
+  position: relative;
+  width: 268.01px;
+  height: 185px;
+}
 .busilyze,
 .group-parent {
   position: absolute;
-  top: 223px;
   left: 89px;
-  width: 1342.01px;
-  height: 185px;
+}
+.group-parent {
+  top: 223px;
+  display: flex;
+  flex-direction: row;
+  padding: 0 23px 0 0;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 64px;
   font-size: var(--font-size-xl);
 }
 .busilyze {
