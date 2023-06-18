@@ -33,10 +33,10 @@
           />
         </div>
       </div>
-            <form action="/upload" method="post" enctype="multipart/form-data">
-              <input type="file" name="video_file">
-              <input type="submit" value="Upload">
-          </form>
+      <form action="/upload_video" method="post" enctype="multipart/form-data">
+        <input type="file" name="video_file"><br><br>
+        <input type="submit" value="Upload">
+    </form>
 
       <div class="upload-the-conversation">
         Upload the conversation video and we’ll give all of these :
@@ -81,5 +81,6 @@
       </div>
       <div class="busilyze">Busilyze</div>
     </div>
+    <p>Predicted Topic : {{ predicted_topic }}</p>
   </body>
 </html>

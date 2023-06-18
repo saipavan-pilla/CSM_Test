@@ -1,7 +1,7 @@
 services:
   myfastapi:
     build: 
-      dockerfile: dockerfile-fastapi
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
     volumes:
