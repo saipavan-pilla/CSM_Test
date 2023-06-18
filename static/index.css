@@ -221,3 +221,20 @@
   color: var(--color-black);
   font-family: var(--font-poppins);
 }
+
+
+.predicted-topic {
+  font-weight: 500;
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  color: var(--color-darkslateblue);
+}
+
+.passage {
+  font-size: var(--font-size-base);
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+
+

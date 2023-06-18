@@ -13,3 +13,5 @@ moviepy
 spectralcluster
 resemblyzer
 pathlib
+spleeter
+nltk

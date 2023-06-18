@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="initial-scale=1, width=device-width" />
     <link rel="stylesheet" href="./static/global.css" />
     <link rel="stylesheet" href="./static/index.css" />
@@ -81,6 +81,16 @@
       </div>
       <div class="busilyze">Busilyze</div>
     </div>
-    <p>Predicted Topic : {{ predicted_topic }}</p>
+    <p class="predicted-topic">Predicted Topic : {{ predicted_topic }}</p>
+    <p class="passage">
+        <ul>
+          {% for line in passage %}
+          <li class="passage">{{ line }}</li>
+          {% endfor %}
+        </ul>
+    </p>
+    <h2>Summary of the conversation</h2>
+    <p>{{response}}</p>
+
   </body>
 </html>
