@@ -13,5 +13,7 @@ moviepy
 spectralcluster
 resemblyzer
 pathlib
-spleeter
 nltk
+openai
+numpy
+cv
