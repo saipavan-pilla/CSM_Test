@@ -528,6 +528,10 @@ import openai
 import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
+
+from google.cloud import storage
+
+
 # import cv2
 
 app = FastAPI()
@@ -545,11 +549,21 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 def index(request : Request):
     context={"request" : request,
              "predicted_topic": "No Video Uploaded"}
-    return templates.TemplateResponse("index.html",context)
+    return templates.TemplateResponse("index1.html",context)
 
 @app.post("/upload_video", response_class=HTMLResponse)
 async def upload_video(request : Request, video_file: UploadFile = File(...)):
     video_path = f"videos/{video_file.filename}"
+    
+    folder_name = 'Videos'
+    bucket_name = 'csm_project'
+    bucket = storage_client.bucket(bucket_name)
+
+    # Upload the image to the specified folder within the bucket
+    blob = bucket.blob(f'{folder_name}/{video_file.filename}')
+    blob.upload_from_file(video_file.file)
+
+
 
     # Save the uploaded video file
     with open(video_path, "wb") as f:
@@ -888,4 +902,4 @@ async def upload_video(request : Request, video_file: UploadFile = File(...)):
     }
 
 
-    return templates.TemplateResponse("index.html", context)
+    return templates.TemplateResponse("index1.html", context)
