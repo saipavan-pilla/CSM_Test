@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="./static/globalres1.css" />
+    <link rel="stylesheet" href="./static/result1.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Pacifico:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+    />
+  </head>
+  <body>
+    <div class="ee">
+      <div class="transcript">Transcript :
+          <p class="passage">
+            <ul>
+              {% for line in passage %}
+              <li class="passage">{{ line }}</li>
+              {% endfor %}
+            </ul>
+        </p>
+      </div>
+      <div class="summarization">Summarization :
+        <h2>Summary of the conversation :</h2>
+        <p>{{response}}</p>
+      </div>
+      <!-- <div class="sentimental-analysis">Sentimental Analysis</div> -->
+      <div class="topic-detection">Topic Detection :
+        <h2>Predicted Topic :</h2> 
+        <p>{{ predicted_topic }}</p>
+      </div>
+      <div class="ee-inner">
+        <div class="frame-child"></div>
+      </div>
+      <div class="ee-child">
+        <div class="frame-item"></div>
+      </div>
+      <div class="frame-div">
+        <div class="frame-item"></div>
+      </div>
+      <img class="ee-item" alt="" src="./public/frame-28990.svg" />
+    </div>
+  </body>
+</html>

@@ -545,25 +545,33 @@ model = AutoModelForSequenceClassification.from_pretrained("ishaansharma/topic-d
 # Set the device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+
+
+
+key_path = "cloudkarya-internship-76c41ffa6790.json"
+storage_client = storage.Client.from_service_account_json(key_path)
+
 @app.get('/')
 def index(request : Request):
     context={"request" : request,
              "predicted_topic": "No Video Uploaded"}
     return templates.TemplateResponse("index1.html",context)
 
+
 @app.post("/upload_video", response_class=HTMLResponse)
 async def upload_video(request : Request, video_file: UploadFile = File(...)):
     video_path = f"videos/{video_file.filename}"
     
-    folder_name = 'Videos'
-    bucket_name = 'csm_project'
-    bucket = storage_client.bucket(bucket_name)
+    # folder_name = 'Videos'
+    # bucket_name = 'csm_project'
+    # bucket = storage_client.bucket(bucket_name)
 
-    # Upload the image to the specified folder within the bucket
-    blob = bucket.blob(f'{folder_name}/{video_file.filename}')
-    blob.upload_from_file(video_file.file)
-
-
+    # # Upload the image to the specified folder within the bucket
+    # blob = bucket.blob(f'{folder_name}/{video_file.filename}')
+    # blob.upload_from_file(video_file.file)
+  
+    
+     
 
     # Save the uploaded video file
     with open(video_path, "wb") as f:
@@ -753,7 +761,7 @@ async def upload_video(request : Request, video_file: UploadFile = File(...)):
 
     text=text+'.Here the emotion of the customer and the sales person is '+emotion
     text=text+'.Give us the final summary of the emotion shown by the customer to the sales person and vice versa'
-    openai.api_key = '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'
+    openai.api_key = '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'
     def chat_with_gpt3(prompt):
         response = openai.Completion.create(
             engine='text-davinci-003',
@@ -902,4 +910,4 @@ async def upload_video(request : Request, video_file: UploadFile = File(...)):
     }
 
 
-    return templates.TemplateResponse("index1.html", context)
+    return templates.TemplateResponse("result.html", context)

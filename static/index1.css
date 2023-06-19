@@ -292,6 +292,8 @@
     position: absolute;
     top: 1208px;
     left: 0;
+    display: flex;
+    flex-direction: row;
     background-color: var(--color-antiquewhite);
     width: 1520px;
     height: 749px;
