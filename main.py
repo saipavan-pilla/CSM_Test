@@ -528,7 +528,7 @@ import openai
 import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
-
+# import cv2
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -585,24 +585,24 @@ async def upload_video(request : Request, video_file: UploadFile = File(...)):
 
     # Map the predicted topic to the corresponding label
     labels = [
-        "arts_&_culture",
-        "business_&_entrepreneurs",
-        "celebrity_&_pop_culture",
-        "diaries_&_daily_life",
-        "family",
-        "fashion_&_style",
-        "film_tv_&_video",
-        "fitness_&_health",
-        "food_&_dining",
-        "gaming",
-        "learning_&_educational",
-        "music",
-        "news_&_social_concern",
-        "other_hobbies",
-        "relationships",
-        "science_&_technology",
-        "sports",
-        "travel_&_adventure",
+        "Arts_&_culture",
+        "Business_&_entrepreneurs",
+        "Celebrity_&_pop_culture",
+        "Diaries_&_Daily_life",
+        "Family",
+        "Fashion_&_Style",
+        "Film_tv_&_Video",
+        "Fitness_&_Health",
+        "Food_&_Dining",
+        "Gaming",
+        "Learning_&_Educational",
+        "Music",
+        "News_&_Social_concern",
+        "Other_hobbies",
+        "Relationships",
+        "Science_&_Technology",
+        "Sports",
+        "Travel_&_Adventure",
         "youth_&_student_life"
     ]
 
@@ -739,7 +739,7 @@ async def upload_video(request : Request, video_file: UploadFile = File(...)):
 
     text=text+'.Here the emotion of the customer and the sales person is '+emotion
     text=text+'.Give us the final summary of the emotion shown by the customer to the sales person and vice versa'
-    openai.api_key = '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'
+    openai.api_key = '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'
     def chat_with_gpt3(prompt):
         response = openai.Completion.create(
             engine='text-davinci-003',
@@ -761,128 +761,130 @@ async def upload_video(request : Request, video_file: UploadFile = File(...)):
 
 
 
-     # Define the emotions labels
-    emotions = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
+    #  # Define the emotions labels
+    # emotions = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
 
-    # Function to load the emotion model
-    def load_emotion_model():
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            return tf.keras.models.load_model('models/emotion_model.h5')
+    # # Function to load the emotion model
+    # def load_emotion_model():
+    #     # with warnings.catch_warnings():
+    #     #     warnings.simplefilter("ignore")
+    #     return tf.keras.models.load_model('emotion_model.h5')
 
-    # Function to process frames and detect emotion
-    def detect_emotion(frame, emotion_model):
-        # Preprocess the frame
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade/haarcascade_frontalface_default.xml')
-        faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+    # # Function to process frames and detect emotion
+    # def detect_emotion(frame, emotion_model):
+    #     # Preprocess the frame
+    #     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    #     face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade/haarcascade_frontalface_default.xml')
+    #     faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
 
-        # Initialize emotion count dictionary
-        emotion_count = {emotion: 0 for emotion in emotions}
+    #     # Initialize emotion count dictionary
+    #     emotion_count = {emotion: 0 for emotion in emotions}
 
-        # Draw rectangles around the faces and detect emotion
-        for (x, y, w, h) in faces:
-            face_roi = gray[y:y + h, x:x + w]
-            resized_roi = cv2.resize(face_roi, (48, 48))
-            normalized_roi = resized_roi / 255.0
-            reshaped_roi = np.reshape(normalized_roi, (1, 48, 48, 1))
-            emotion_prediction = emotion_model.predict(reshaped_roi)
-            emotion_label = emotions[np.argmax(emotion_prediction)]
+    #     # Draw rectangles around the faces and detect emotion
+    #     for (x, y, w, h) in faces:
+    #         face_roi = gray[y:y + h, x:x + w]
+    #         resized_roi = cv2.resize(face_roi, (48, 48))
+    #         normalized_roi = resized_roi / 255.0
+    #         reshaped_roi = np.reshape(normalized_roi, (1, 48, 48, 1))
+    #         emotion_prediction = emotion_model.predict(reshaped_roi)
+    #         emotion_label = emotions[np.argmax(emotion_prediction)]
 
-            # Increment emotion count
-            emotion_count[emotion_label] += 1
+    #         # Increment emotion count
+    #         emotion_count[emotion_label] += 1
 
-            # Draw rectangle and emotion label on the frame
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-            cv2.putText(frame, emotion_label, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
+    #         # Draw rectangle and emotion label on the frame
+    #         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+    #         cv2.putText(frame, emotion_label, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
 
-        return frame, emotion_count
+    #     return frame, emotion_count
 
-    def index():
-        # Get the uploaded video file
+    # def index():
+    #     # Get the uploaded video file
 
-        # Load the emotion model
-        emotion_model = load_emotion_model()
+    #     # Load the emotion model
+    #     emotion_model = load_emotion_model()
 
-        # Read the video file
-        video = cv2.VideoCapture(video_path)
+    #     # Read the video file
+    #     video = cv2.VideoCapture(video_path)
 
-        # Initialize emotion count dictionary
-        total_emotion_count = {emotion: 0 for emotion in emotions}
+    #     # Initialize emotion count dictionary
+    #     total_emotion_count = {emotion: 0 for emotion in emotions}
 
-        while True:
-            # Read a frame from the video
-            ret, frame = video.read()
-            if not ret:
-                break
+    #     while True:
+    #         # Read a frame from the video
+    #         ret, frame = video.read()
+    #         if not ret:
+    #             break
 
-            # Process the frame and detect emotion
-            processed_frame, emotion_count = detect_emotion(frame, emotion_model)
+    #         # Process the frame and detect emotion
+    #         processed_frame, emotion_count = detect_emotion(frame, emotion_model)
 
-            # Increment total emotion count
-            for emotion, count in emotion_count.items():
-                total_emotion_count[emotion] += count
+    #         # Increment total emotion count
+    #         for emotion, count in emotion_count.items():
+    #             total_emotion_count[emotion] += count
 
-            # Display the frame with emotions
-            # cv2.imshow("Emotion Detection", processed_frame)
-            # if cv2.waitKey(1) & 0xFF == ord('q'):
-            #     break
+    #         # Display the frame with emotions
+    #         # cv2.imshow("Emotion Detection", processed_frame)
+    #         # if cv2.waitKey(1) & 0xFF == ord('q'):
+    #         #     break
 
-        video.release()
-        cv2.destroyAllWindows()
+    #     video.release()
+    #     cv2.destroyAllWindows()
 
-        # Display the emotion count
-        for emotion, count in total_emotion_count.items():
-            print(f"{emotion}: {count}")
+    #     # Display the emotion count
+    #     for emotion, count in total_emotion_count.items():
+    #         print(f"{emotion}: {count}")
 
-        # Get the emotion with the greatest count
-        max_emotion = max(total_emotion_count, key=total_emotion_count.get)
-        max_count = total_emotion_count[max_emotion]
+    #     # Get the emotion with the greatest count
+    #     max_emotion = max(total_emotion_count, key=total_emotion_count.get)
+    #     max_count = total_emotion_count[max_emotion]
 
-        # Define the salesman rating barometer labels
-        barometer_labels = ['Worse', 'Bad', 'OK', 'Good', 'Great']
+    #     # Define the salesman rating barometer labels
+    #     barometer_labels = ['Worse', 'Bad', 'OK', 'Good', 'Great']
 
-        # Define the corresponding emotion labels for the barometer
-        barometer_emotions = ['Angry', 'Disgust', 'Fear', 'Neutral', 'Happy']
+    #     # Define the corresponding emotion labels for the barometer
+    #     barometer_emotions = ['Angry', 'Disgust', 'Fear', 'Neutral', 'Happy']
 
-        # Determine the rating level based on the emotion
-        rating_level = barometer_labels[barometer_emotions.index(max_emotion)]
-        # print(f"Emotion with the greatest count: {max_emotion}")
-        # print(f"Count: {max_count}")
-        # print(f"Rating Level: {rating_level}")
+    #     # Determine the rating level based on the emotion
+    #     rating_level = barometer_labels[barometer_emotions.index(max_emotion)]
+    #     # print(f"Emotion with the greatest count: {max_emotion}")
+    #     # print(f"Count: {max_count}")
+    #     # print(f"Rating Level: {rating_level}")
 
-        # Filter emotions with more than 30% of the total count
-        filtered_emotions = {emotion: count for emotion, count in total_emotion_count.items() if count > 0.3 * sum(total_emotion_count.values())}
+    #     # Filter emotions with more than 30% of the total count
+    #     filtered_emotions = {emotion: count for emotion, count in total_emotion_count.items() if count > 0.3 * sum(total_emotion_count.values())}
 
-        # Create the pie chart
-        labels = filtered_emotions.keys()
-        counts = filtered_emotions.values()
+    #     # Create the pie chart
+    #     labels = filtered_emotions.keys()
+    #     counts = filtered_emotions.values()
 
-        fig1, ax1 = plt.subplots()
-        ax1.pie(counts, labels=labels, autopct='%1.1f%%', startangle=90)
-        ax1.axis('equal')
-        ax1.set_title('Emotion Distribution')
+    #     fig1, ax1 = plt.subplots()
+    #     ax1.pie(counts, labels=labels, autopct='%1.1f%%', startangle=90)
+    #     ax1.axis('equal')
+    #     ax1.set_title('Emotion Distribution')
 
-        # Create a bar chart for the rating level
-        rating_levels = barometer_labels
-        rating_counts = [0] * len(rating_levels)
-        rating_counts[rating_levels.index(rating_level)] = 1
+    #     # Create a bar chart for the rating level
+    #     rating_levels = barometer_labels
+    #     rating_counts = [0] * len(rating_levels)
+    #     rating_counts[rating_levels.index(rating_level)] = 1
 
-        fig2, ax2 = plt.subplots()
-        ax2.bar(rating_levels, rating_counts)
-        ax2.set_xlabel('Rating Level')
-        ax2.set_ylabel('Count')
-        ax2.set_title('Salesman Rating Barometer')
+    #     fig2, ax2 = plt.subplots()
+    #     ax2.bar(rating_levels, rating_counts)
+    #     ax2.set_xlabel('Rating Level')
+    #     ax2.set_ylabel('Count')
+    #     ax2.set_title('Salesman Rating Barometer')
 
-        return fig1, fig2
-
-
+    #     return fig1, fig2
+    # fig1, fig2 = index()
+    
     context = {
         "request": request,
         "video_path": video_path,
         "predicted_topic": predicted_topic_label,
         "passage":passage,
-        "response":response
+        "response":response,
+        # "fig1":fig1,
+        # "fig2":fig2
     }
 
 

@@ -36,7 +36,7 @@
       <form action="/upload_video" method="post" enctype="multipart/form-data">
         <input type="file" name="video_file"><br><br>
         <input type="submit" value="Upload">
-    </form>
+     </form>
 
       <div class="upload-the-conversation">
         Upload the conversation video and we’ll give all of these :
@@ -81,7 +81,10 @@
       </div>
       <div class="busilyze">Busilyze</div>
     </div>
-    <p class="predicted-topic">Predicted Topic : {{ predicted_topic }}</p>
+    <div class="result">
+    <h2>Predicted Topic :</h2> 
+    <p>{{ predicted_topic }}</p>
+    <h2>Conversation :</h2>
     <p class="passage">
         <ul>
           {% for line in passage %}
@@ -89,8 +92,10 @@
           {% endfor %}
         </ul>
     </p>
-    <h2>Summary of the conversation</h2>
+    <h2>Summary of the conversation :</h2>
     <p>{{response}}</p>
-
+    <div>{{fig1}}</div>
+    <div>{{fig2}}</div>
+  </div>
   </body>
 </html>
