@@ -3,7 +3,7 @@ jinja2
 tensorflow
 matplotlib
 urllib3
-opencv-python
+opencv-python-headless
 transformers
 torch
 SpeechRecognition
@@ -18,3 +18,4 @@ openai
 numpy
 cv
 google-cloud-storage
+google-cloud-bigquery

@@ -529,7 +529,7 @@ import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
 
-from google.cloud import storage
+from google.cloud import bigquery,storage
 
 
 # import cv2
@@ -546,11 +546,6 @@ model = AutoModelForSequenceClassification.from_pretrained("ishaansharma/topic-d
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-
-
-key_path = "cloudkarya-internship-76c41ffa6790.json"
-storage_client = storage.Client.from_service_account_json(key_path)
-
 @app.get('/')
 def index(request : Request):
     context={"request" : request,
@@ -562,18 +557,16 @@ def index(request : Request):
 async def upload_video(request : Request, video_file: UploadFile = File(...)):
     video_path = f"videos/{video_file.filename}"
     
-    # folder_name = 'Videos'
-    # bucket_name = 'csm_project'
-    # bucket = storage_client.bucket(bucket_name)
+    key_Path = "cloudkarya-internship-76c41ffa6790.json"
+    project_id = "cloudkarya-internship"
+    bigquery_Client = bigquery.Client.from_service_account_json(key_Path)
+    storage_Client = storage.Client.from_service_account_json(key_Path)
+    bucket_Name = "csm_project"
 
     # # Upload the image to the specified folder within the bucket
     # blob = bucket.blob(f'{folder_name}/{video_file.filename}')
-    # blob.upload_from_file(video_file.file)
-  
-    
-     
+    # blob.upload_from_file(video_file.file) 
 
-    # Save the uploaded video file
     with open(video_path, "wb") as f:
         f.write(await video_file.read())
 
@@ -631,19 +624,12 @@ async def upload_video(request : Request, video_file: UploadFile = File(...)):
     predicted_topic_label = labels[predicted_topic]
 
     # Render the result page
-    
-
-
-
-
     # separator = Separator('spleeter:2stems')
     # separator.separate_to_file(audio_path, 'output')
-
-
     # audio_file_path = 'output/audio/vocals.wav'
     # wav_fpath = Path(audio_file_path)
 
-
+     
     wav_fpath = Path(audio_path) 
     wav = preprocess_wav(wav_fpath)
     encoder = VoiceEncoder("cpu")
@@ -655,7 +641,6 @@ async def upload_video(request : Request, video_file: UploadFile = File(...)):
         max_clusters=100)
 
     labels = clusterer.predict(cont_embeds)
-
 
     def create_labelling(labels,wav_splits):
         from resemblyzer import sampling_rate
@@ -671,12 +656,8 @@ async def upload_video(request : Request, video_file: UploadFile = File(...)):
             if i==len(times)-1:
                 temp = [str(labels[i]),start_time,time]
                 labelling.append(tuple(temp))
-
         return labelling
-
     labelling = create_labelling(labels,wav_splits)
-
-
 
     list=[]
     def split_audio(audio_file, labelling):
@@ -743,7 +724,6 @@ async def upload_video(request : Request, video_file: UploadFile = File(...)):
             print("Could not request results from the speech recognition service; {0}".format(e))
 
 
-
     nltk.download('vader_lexicon')
     from nltk.sentiment import SentimentIntensityAnalyzer
     sia = SentimentIntensityAnalyzer()
@@ -755,13 +735,10 @@ async def upload_video(request : Request, video_file: UploadFile = File(...)):
     elif maximum==x['neu']:
         emotion='neutral'
     else:
-        
         emotion='negative'
-
-
     text=text+'.Here the emotion of the customer and the sales person is '+emotion
     text=text+'.Give us the final summary of the emotion shown by the customer to the sales person and vice versa'
-    openai.api_key = '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'
+    openai.api_key = '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'
     def chat_with_gpt3(prompt):
         response = openai.Completion.create(
             engine='text-davinci-003',
@@ -770,11 +747,78 @@ async def upload_video(request : Request, video_file: UploadFile = File(...)):
             temperature=0.6
         )
         return response.choices[0].text.strip()
-
     print("Welcome to the ChatGPT! Type 'exit' to end the conversation.")
     user_input = text
     response = chat_with_gpt3(user_input)
   
+    # query = f"""
+    # INSERT INTO `{project_id}.CSM.csm_data`
+    # VALUES ('{predicted_topic_label}', '{passage}', '{response}')
+    # """
+    # job = bigquery_Client.query(query)
+    # job.result() 
+    
+    query = """
+    INSERT INTO `{}.CSM.csm_data`
+    VALUES (@predicted_topic_label, @passage, @response)
+    """.format(project_id)
+
+    job_config = bigquery.QueryJobConfig()
+    job_config.query_parameters = [
+        bigquery.ScalarQueryParameter("predicted_topic_label", "STRING", predicted_topic_label),
+        bigquery.ScalarQueryParameter("passage", "STRING", passage),
+        bigquery.ScalarQueryParameter("response", "STRING", response)
+    ]
+
+    job = bigquery_Client.query(query, job_config=job_config)
+    job.result()
+
+
+
+
+
+    context = {
+        "request": request,
+        "video_path": video_path,
+        "predicted_topic": predicted_topic_label,
+        "passage":passage,
+        "response":response
+    }
+
+
+    return templates.TemplateResponse("result.html", context)
+
+# @app.post("/ImageData/")
+# async def create_image_data(item: ImageData):    
+#     query = f"""
+#     INSERT INTO `{project_id}.CSM.csm_data`
+#     VALUES ('{item.predicted_topic_label}', '{item.passage}', '{item.response}')
+#     """
+#     job = bigquery_client.query(query)
+#     job.result()  # Wait for the query to complete
+#     return {"message": "Data inserted successfully"}
+
+# @app.get("/ImageDatas",response_class=HTMLResponse)
+# async def get_image_data():
+#    query = f"""
+#          SELECT  * FROM {project_id}.CSM.csm_data;
+#    """
+#    df = bigquery_client.query(query).to_dataframe()
+#    # df.head()
+#    return df.to_html()
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -898,16 +942,3 @@ async def upload_video(request : Request, video_file: UploadFile = File(...)):
 
     #     return fig1, fig2
     # fig1, fig2 = index()
-    
-    context = {
-        "request": request,
-        "video_path": video_path,
-        "predicted_topic": predicted_topic_label,
-        "passage":passage,
-        "response":response,
-        # "fig1":fig1,
-        # "fig2":fig2
-    }
-
-
-    return templates.TemplateResponse("result.html", context)

@@ -20,7 +20,7 @@
   </head>
   <body>
     <div class="ee">
-      <div class="transcript">Transcript :
+      <div class="transcript"><h3>Transcript :</h3>
           <p class="passage">
             <ul>
               {% for line in passage %}
@@ -29,25 +29,15 @@
             </ul>
         </p>
       </div>
-      <div class="summarization">Summarization :
-        <h2>Summary of the conversation :</h2>
+      <div class="summarization">
+        <h3>Summary of the conversation :</h3>
         <p>{{response}}</p>
       </div>
       <!-- <div class="sentimental-analysis">Sentimental Analysis</div> -->
-      <div class="topic-detection">Topic Detection :
-        <h2>Predicted Topic :</h2> 
-        <p>{{ predicted_topic }}</p>
+      <div class="topic-detection"><h3>Topic Detection :</h3>
+        <p>Here the conversation is about {{ predicted_topic }}</p>
       </div>
-      <div class="ee-inner">
-        <div class="frame-child"></div>
-      </div>
-      <div class="ee-child">
-        <div class="frame-item"></div>
-      </div>
-      <div class="frame-div">
-        <div class="frame-item"></div>
-      </div>
-      <img class="ee-item" alt="" src="./public/frame-28990.svg" />
+      <img class="ee-item" alt="" src="./static/frame-28990.svg" />
     </div>
   </body>
 </html>

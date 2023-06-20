@@ -4,11 +4,13 @@
   position: absolute;
   top: 126px;
   left: 90px;
-  font-weight: 600;
+  max-width: 50%;
+  font-weight: 200;
 }
 .sentimental-analysis,
 .summarization {
   left: 878px;
+  font-weight: 200;
 }
 .sentimental-analysis {
   top: 882px;
@@ -19,7 +21,7 @@
   position: absolute;
   top: 417px;
   left: 878px;
-  font-weight: 600;
+  font-weight: 200;
 }
 .ee-inner,
 .frame-child,
