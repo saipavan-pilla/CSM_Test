@@ -421,3 +421,8 @@
     font-family: var(--font-poppins);
   }
   
+
+  .surya1:hover, .pavan:hover, .murali:hover, .manikanta:hover, .sandeep:hover {
+    cursor: pointer;
+  }
+  
