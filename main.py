@@ -529,6 +529,7 @@ import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
 
+from google.cloud import secretmanager
 from google.cloud import bigquery,storage
 
 
@@ -563,9 +564,9 @@ async def upload_video(request : Request, video_file: UploadFile = File(...),tex
     storage_Client = storage.Client.from_service_account_json(key_Path)
     bucket_Name = "csm_project"
 
-    # # Upload the image to the specified folder within the bucket
-    # blob = bucket.blob(f'{folder_name}/{video_file.filename}')
-    # blob.upload_from_file(video_file.file) 
+    # Upload the image to the specified folder within the bucket
+    blob = bucket.blob(f'{folder_name}/{video_file.filename}')
+    blob.upload_from_file(video_file.file) 
 
 
     # destination_bucket = client.bucket("pkcsm-processed")
@@ -742,7 +743,21 @@ async def upload_video(request : Request, video_file: UploadFile = File(...),tex
         emotion='negative'
     text=text+'.Here the emotion of the customer and the sales person is '+emotion
     text=text+'.Give us the final summary of the emotion shown by the customer to the sales person and vice versa'
-    openai.api_key = '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'
+    # openai.api_key = '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'
+    #
+    # Create a client
+    client = secretmanager.SecretManagerServiceClient()
+
+    # Specify the name of the secret
+    secret_name = "projects/your-project-id/secrets/your-secret-name/versions/latest"
+
+    # Access the secret
+    response = client.access_secret_version(request={"name": secret_name})
+    api_key = response.payload.data.decode("UTF-8")
+
+    # Use the API key in your application
+    print(api_key)
+    
     def chat_with_gpt3(prompt):
         response = openai.Completion.create(
             engine='text-davinci-003',

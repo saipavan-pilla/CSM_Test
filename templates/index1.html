@@ -24,7 +24,7 @@
       .surya1:hover, .pavan:hover, .murali:hover, .manikanta:hover, .sandeep:hover {
         cursor: pointer;
       }
-        
+
       .name-surya-musunuri-parent .surya-musunuri img {
       max-width: 100%;
       max-height: 100px;
@@ -143,6 +143,7 @@
         <div class="surya-child"></div>
         <iframe
           class="surya-item"
+          id="video"
           src="https://www.youtube.com/embed/UNFVFTqHqtI"
           frameborder="0"
           allowfullscreen
@@ -165,7 +166,6 @@
           </div>
           <div class="vector-container">
             <img class="vector-icon" alt="" src="./static/vector1.svg" />
-
             <div class="am-container">07-06-2023 09:30 am ★ ★ ★ ★ ★</div>
           </div>
           <div class="frame-div">
@@ -181,7 +181,7 @@
           <div class="vector-parent1">
             <img class="vector-icon" alt="" src="./static/vector1.svg" />
 
-            <div class="am-container">09-06-2023 11:30 am ★ ★ ★ ★ ★</div>
+            <div class="am-container"><a onclick="video()" id="myLink" href="https://www.youtube.com/embed/p6gNyoh3s10?start=3">09-06-2023 11:30 am ★ ★ ★ ★ ★</a></div>
           </div>
         </div>
         <div class="name-surya-musunuri-parent">
@@ -245,7 +245,7 @@
           
 
          
-                      <!-- 
+            <!-- 
                               <form action="/upload_video" method="POST">
                                 <label for="name">Name:</label>
                                 <input type="text" id="name" name="name" value="Surya Musunuri" required />
@@ -321,7 +321,17 @@
     </div>
   </body>
   <script>
+
+    function video(){
+      var link = document.getElementById("myLink");
+      var href = link.href;
+      document.getElementById("video").src=href;      
+    }      
      function updateName(name,hired,rating,sale) {
+
+    
+
+
         const nameContainer = document.querySelector(".name-surya-musunuri-parent");
         const nameElement = nameContainer.querySelector("#Empname");
         const hiredElement = nameContainer.querySelector("#Emphired");
