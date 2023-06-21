@@ -166,12 +166,14 @@
           </div>
           <div class="vector-container">
             <img class="vector-icon" alt="" src="./static/vector1.svg" />
-            <div class="am-container">07-06-2023 09:30 am ★ ★ ★ ★ ★</div>
+            <a href="#" onclick="showVideo()">07-06-2023 09:30 am ★ ★ ★ ★ ★</a>
+            <!-- <div class="am-container">07-06-2023 09:30 am ★ ★ ★ ★ ★</div> -->
           </div>
           <div class="frame-div">
             <img class="vector-icon" alt="" src="./static/vector.svg" />
 
             <div class="am-container">
+
               <span>08-06-2023 10:30 am ★ ★ </span>
               <span class="span1">★</span>
               <span> </span>
@@ -322,16 +324,19 @@
   </body>
   <script>
 
-    function video(){
-      var link = document.getElementById("myLink");
-      var href = link.href;
-      document.getElementById("video").src=href;      
-    }      
-     function updateName(name,hired,rating,sale) {
+  function showVideo() {
+      var videoContainer = document.getElementById("video");
+      videoContainer.src="https://www.youtube.com/embed/p6gNyoh3s10?start=3";
+    } 
 
-    
+      
+    // function video(){
+    //   var link = document.getElementById("myLink");
+    //   var href = link.href;
+    //   document.getElementById("video").src=href;      
+    // }      
 
-
+    function updateName(name,hired,rating,sale) {
         const nameContainer = document.querySelector(".name-surya-musunuri-parent");
         const nameElement = nameContainer.querySelector("#Empname");
         const hiredElement = nameContainer.querySelector("#Emphired");
