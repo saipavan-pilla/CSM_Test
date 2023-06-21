@@ -533,8 +533,6 @@ from google.cloud import secretmanager
 from google.cloud import bigquery,storage
 
 
-# import cv2
-
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
@@ -542,9 +540,16 @@ templates = Jinja2Templates(directory="templates")
 # Load the tokenizer and model
 tokenizer = AutoTokenizer.from_pretrained("ishaansharma/topic-detector")
 model = AutoModelForSequenceClassification.from_pretrained("ishaansharma/topic-detector")
-
 # Set the device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+
+key_Path = "cloudkarya-internship-76c41ffa6790.json"
+project_id = "cloudkarya-internship"
+bigquery_Client = bigquery.Client.from_service_account_json(key_Path)
+storage_Client = storage.Client.from_service_account_json(key_Path)
+bucket_Name = "pkcsm-raw"
+
 
 
 @app.get('/')
@@ -557,20 +562,20 @@ def index(request : Request):
 @app.post("/upload_video", response_class=HTMLResponse)
 async def upload_video(request : Request, video_file: UploadFile = File(...),text_name: str = Form(...),text_rating: str = Form(...),text_sale: str = Form(...)):
     video_path = f"videos/{video_file.filename}"
-                                                                         
-    key_Path = "cloudkarya-internship-76c41ffa6790.json"
-    project_id = "cloudkarya-internship"
-    bigquery_Client = bigquery.Client.from_service_account_json(key_Path)
-    storage_Client = storage.Client.from_service_account_json(key_Path)
-    bucket_Name = "csm_project"
+    folder_Name = "videos"
 
-    # Upload the image to the specified folder within the bucket
-    blob = bucket.blob(f'{folder_name}/{video_file.filename}')
-    blob.upload_from_file(video_file.file) 
+    bucket = storage_Client.get_bucket(bucket_Name)
+    bucket = storage_Client.get_bucket(bucket_Name)
+    blob = bucket.blob(f'{video_file.filename}')
+    blob.upload_from_filename(video_path)
 
 
-    # destination_bucket = client.bucket("pkcsm-processed")
- 
+
+
+
+
+
+
 
     with open(video_path, "wb") as f:
         f.write(await video_file.read())
@@ -628,13 +633,7 @@ async def upload_video(request : Request, video_file: UploadFile = File(...),tex
 
     predicted_topic_label = labels[predicted_topic]
 
-    # Render the result page
-    # separator = Separator('spleeter:2stems')
-    # separator.separate_to_file(audio_path, 'output')
-    # audio_file_path = 'output/audio/vocals.wav'
-    # wav_fpath = Path(audio_file_path)
-
-     
+   
     wav_fpath = Path(audio_path) 
     wav = preprocess_wav(wav_fpath)
     encoder = VoiceEncoder("cpu")
@@ -743,20 +742,20 @@ async def upload_video(request : Request, video_file: UploadFile = File(...),tex
         emotion='negative'
     text=text+'.Here the emotion of the customer and the sales person is '+emotion
     text=text+'.Give us the final summary of the emotion shown by the customer to the sales person and vice versa'
-    # openai.api_key = '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'
-    #
-    # Create a client
-    client = secretmanager.SecretManagerServiceClient()
+    openai.api_key = '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'
+    
+    # # Create a client
+    # client = secretmanager.SecretManagerServiceClient()
 
-    # Specify the name of the secret
-    secret_name = "projects/your-project-id/secrets/your-secret-name/versions/latest"
+    # # Specify the name of the secret
+    # secret_name = "projects/your-project-id/secrets/your-secret-name/versions/latest"
 
-    # Access the secret
-    response = client.access_secret_version(request={"name": secret_name})
-    api_key = response.payload.data.decode("UTF-8")
+    # # Access the secret
+    # response = client.access_secret_version(request={"name": secret_name})
+    # api_key = response.payload.data.decode("UTF-8")
 
-    # Use the API key in your application
-    print(api_key)
+    # # Use the API key in your application
+    # print(api_key)
     
     def chat_with_gpt3(prompt):
         response = openai.Completion.create(

@@ -8,7 +8,6 @@ transformers
 torch
 SpeechRecognition
 pydub
-google-api-python-client
 moviepy
 spectralcluster
 resemblyzer
@@ -16,7 +15,6 @@ pathlib
 nltk
 openai
 numpy
-cv
 google-cloud-storage
 google-cloud-bigquery
 google-cloud-secret-manager
