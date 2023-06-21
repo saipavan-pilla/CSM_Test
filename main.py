@@ -567,6 +567,10 @@ async def upload_video(request : Request, video_file: UploadFile = File(...)):
     # blob = bucket.blob(f'{folder_name}/{video_file.filename}')
     # blob.upload_from_file(video_file.file) 
 
+
+    destination_bucket = client.bucket("pkcsm-processed")
+ 
+
     with open(video_path, "wb") as f:
         f.write(await video_file.read())
 

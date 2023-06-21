@@ -19,6 +19,13 @@
       .mySlides {display: none;}
       img {vertical-align: middle;}
       
+      .name-surya-musunuri-parent .surya-musunuri img {
+      max-width: 100%;
+      max-height: 100px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
       /* Slideshow container */
       .slideshow-container {
         max-width: 1000px;
@@ -115,9 +122,9 @@
 
             <img class="icon2" alt="" src="./static/icon3.svg" />
 
-            <img class="icon2" alt="" src="./public/icon4.svg" />
+            <img class="icon2" alt="" src="./static/icon4.svg" />
 
-            <img class="icon2" alt="" src="./public/icon5.svg" />
+            <img class="icon2" alt="" src="./static/icon5.svg" />
           </div>
         </div>
         <img
@@ -272,13 +279,13 @@
             <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <div class="employees">Employees</div>
-        <div class="surya1">Surya</div>
+        <div class="surya1" onhover="subm">Surya</div>
         <div class="pavan">Pavan</div>
         <div class="murali">Manoj</div>
         <div class="manikanta">Manikanta</div>
         <div class="sandeep">Sandeep</div>
         <img class="mani-icon" alt="" src="./static/mani@2x.png" />
-        <img class="surya-icon" alt="" src="./static/surya@2x.png" />
+        <img class="surya-icon" alt="" src="./static/surya@2x.png" "  />
         <img class="manoj-icon" alt="" src="./static/manoj@2x.png" />
         <img class="sandeep-icon" alt="" src="./static/sandeep@2x.png" />
 
@@ -296,6 +303,18 @@
     </div>
   </body>
   <script>
+    // function updateName(name) {
+    //   const nameContainer = document.querySelector(".name-surya-musunuri-parent");
+    //   const nameElements = nameContainer.querySelectorAll("b");
+
+    //   nameElements[0].textContent = "Name:"+name;
+    //   nameElements[1].textContent = "Hired:"+"june 2023";
+    //   nameElements[2].textContent = "Average Rating:"+"4.5";
+    //   nameElements[3].textContent = "Average Sale:"+"454";
+    // } 
+
+
+    
     let slideIndex = 0;
     showSlides();
     
