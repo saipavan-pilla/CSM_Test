@@ -187,14 +187,14 @@
               <span>
                 <span class="span4"> </span>
               </span>
-              <b>Surya Musunuri</b>
+              <b id="Empname">Surya Kumar</b>
             </span>
           </div>
           <b class="name-surya-container">
             <span>Hired :</span>
             <span class="surya-musunuri">
               <span class="span5"> </span>
-              <span>Jan 2023</span>
+              <span >Jan 2023</span>
             </span>
           </b>
           <b class="name-surya-container">
@@ -204,14 +204,14 @@
             </span>
             <span class="surya-musunuri">
               <span class="span5"> </span>
-              <span>4.5 </span>
+              <span id="Emprating">4.5 </span>
             </span>
           </b>
           <div class="name-surya-container">
             <b>Average Sale :</b>
             <span class="surya-musunuri">
               <span class="span10"> </span>
-              <b>450/-</b>
+              <b id="Empsale">450/-</b>
             </span>
           </div>
         </div>
@@ -230,20 +230,31 @@
             </div>
           </div>
           <form action="/upload_video" method="post" enctype="multipart/form-data">
-            <input type="file" name="video_file"><br><br>
+            <input type="file" name="video_file">
+            <input type="text" id="emp_name" name="text_name" required /><br>
+            <input type="text" id="emp_rating" name="text_rating" required />
+            <input type="text" id="emp_sale" name="text_sale" required />           
             <input type="submit" value="Upload">
          </form>
-          <!-- <form class="video-form">
-            <input type="text" name="video-url" placeholder="Enter video URL" />
-            <button type="submit" class="rectangle-parent">
-              <div class="group-child"></div>
-              <div class="detail-analysis">Submit</div>
-            </button>
-          </form> -->
-          <!-- <button class="rectangle-parent">
-            <div class="group-child"></div>
-            <div class="detail-analysis">Detail Analysis</div>
-          </button> -->
+          
+
+         
+                      <!-- 
+                              <form action="/upload_video" method="POST">
+                                <label for="name">Name:</label>
+                                <input type="text" id="name" name="name" value="Surya Musunuri" required />
+                                <input type="file" id="video" name="video" required />
+                                <button type="submit">Upload</button>
+                              </form> -->
+
+        <!-- <form action="/upload_video" method="POST">
+         <label for="name">Name:</label>
+          <input type="text" id="emp_name" name="name" required />
+          <input type="file"  name="video_file" required />
+          <button type="submit">Upload</button>
+        </form> -->
+                              
+                              
         </div>
       </div>
       <div class="hero">
@@ -312,9 +323,11 @@
     //   nameElements[2].textContent = "Average Rating:"+"4.5";
     //   nameElements[3].textContent = "Average Sale:"+"454";
     // } 
-
-
-    
+                                // Get the name from surya-name-container and set it as the value of the name input field
+    document.getElementById("emp_name").value = document.getElementById("Empname").textContent;
+    document.getElementById("emp_rating").value = document.getElementById("Emprating").textContent;
+    document.getElementById("emp_sale").value = document.getElementById("Empsale").textContent;
+                            
     let slideIndex = 0;
     showSlides();
     

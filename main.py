@@ -507,7 +507,7 @@
 #     main()
 
 
-from fastapi import FastAPI, Request, File, UploadFile
+from fastapi import FastAPI, Request, File, UploadFile,Form
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -554,9 +554,9 @@ def index(request : Request):
 
 
 @app.post("/upload_video", response_class=HTMLResponse)
-async def upload_video(request : Request, video_file: UploadFile = File(...)):
+async def upload_video(request : Request, video_file: UploadFile = File(...),text_name: str = Form(...),text_rating: str = Form(...),text_sale: str = Form(...)):
     video_path = f"videos/{video_file.filename}"
-    
+                                                                         
     key_Path = "cloudkarya-internship-76c41ffa6790.json"
     project_id = "cloudkarya-internship"
     bigquery_Client = bigquery.Client.from_service_account_json(key_Path)
@@ -568,7 +568,7 @@ async def upload_video(request : Request, video_file: UploadFile = File(...)):
     # blob.upload_from_file(video_file.file) 
 
 
-    destination_bucket = client.bucket("pkcsm-processed")
+    # destination_bucket = client.bucket("pkcsm-processed")
  
 
     with open(video_path, "wb") as f:
@@ -742,7 +742,7 @@ async def upload_video(request : Request, video_file: UploadFile = File(...)):
         emotion='negative'
     text=text+'.Here the emotion of the customer and the sales person is '+emotion
     text=text+'.Give us the final summary of the emotion shown by the customer to the sales person and vice versa'
-    openai.api_key = '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'
+    openai.api_key = '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'
     def chat_with_gpt3(prompt):
         response = openai.Completion.create(
             engine='text-davinci-003',
@@ -764,14 +764,17 @@ async def upload_video(request : Request, video_file: UploadFile = File(...)):
     
     query = """
     INSERT INTO `{}.CSM.csm_data`
-    VALUES (@predicted_topic_label, @passage, @response)
+    VALUES (@predicted_topic_label, @passage, @response,@text_name,@text_rating,@text_sale)
     """.format(project_id)
 
     job_config = bigquery.QueryJobConfig()
     job_config.query_parameters = [
         bigquery.ScalarQueryParameter("predicted_topic_label", "STRING", predicted_topic_label),
         bigquery.ScalarQueryParameter("passage", "STRING", passage),
-        bigquery.ScalarQueryParameter("response", "STRING", response)
+        bigquery.ScalarQueryParameter("response", "STRING", response),
+        bigquery.ScalarQueryParameter("text_name", "STRING", text_name),
+        bigquery.ScalarQueryParameter("text_rating", "STRING", text_rating),
+        bigquery.ScalarQueryParameter("text_sale", "STRING", text_sale)
     ]
 
     job = bigquery_Client.query(query, job_config=job_config)
@@ -786,7 +789,7 @@ async def upload_video(request : Request, video_file: UploadFile = File(...)):
         "video_path": video_path,
         "predicted_topic": predicted_topic_label,
         "passage":passage,
-        "response":response
+        "response":response,
     }
 
 
