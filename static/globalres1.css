@@ -74,6 +74,7 @@
 }
 .ee {
   position: relative;
+  display: block;
   background-color: var(--color-antiquewhite);
   width: 100%;
   height: 762px;
@@ -82,4 +83,8 @@
   font-size: var(--font-size-5xl);
   color: var(--color-gray-100);
   font-family: var(--title);
+}
+
+.fig{
+  display: block;
 }

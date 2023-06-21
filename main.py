@@ -742,7 +742,7 @@ async def upload_video(request : Request, video_file: UploadFile = File(...),tex
         emotion='negative'
     text=text+'.Here the emotion of the customer and the sales person is '+emotion
     text=text+'.Give us the final summary of the emotion shown by the customer to the sales person and vice versa'
-    openai.api_key = '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'
+    openai.api_key = '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'
     
     # # Create a client
     # client = secretmanager.SecretManagerServiceClient()
