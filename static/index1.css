@@ -46,6 +46,7 @@
     height: 24px;
   }
   .span {
+    size: 20px;
     text-decoration: underline;
   }
   .a {
