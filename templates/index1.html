@@ -89,6 +89,14 @@
       @media only screen and (max-width: 300px) {
         .text {font-size: 11px}
       }
+
+      .sub{
+        border-radius: 25px;
+        width:95px;
+        height:35px;
+        color:white;
+        background-color:#4c2165 ;
+      }
       </style>
         
   </head>
@@ -96,15 +104,15 @@
     <div class="code">
       <div class="footer">
         <img class="powered-by-icon" alt="" src="/static//powered-by.svg" />
-
-        <img class="busilyze-icon" alt="" src="./static/busilyze.svg" />
+        
+        <img class="busilyze-icon" alt="" src="./static/CloudKarya1.png" />
 
         <img class="address-icon" alt="" src="./static/address.svg" />
 
         <div class="frame-parent">
           <div class="email-parent">
             <div class="email">
-              <div class="email1">support@puma.com</div>
+              <div class="email1">support@cloudkarya.com</div>
             </div>
             <img class="icon" alt="" src="./static/icon.svg" />
           </div>
@@ -155,35 +163,36 @@
             <img class="vector-icon" alt="" src="./static/vector.svg" />
 
             <div class="am-container">
-              <span>05-06-2023 09:30 am ★ ★ ★ ★ </span>
-              <span class="span1">★</span>
+              <a href="#" onclick="showVideo()">05-06-2023  09:30 AM  ★★★★</a>
+              <!-- <span>05-06-2023 09:30 am ★ ★ ★ ★ </span> -->
+              <!-- <span class="span1">★</span> -->
             </div>
           </div>
           <div class="vector-group">
             <img class="vector-icon" alt="" src="./static/vector1.svg" />
-
-            <div class="am-container">06-06-2023 10:00 am ★ ★ ★ ★ ★</div>
+            <a href="#" onclick="showVideo1()">06-06-2023 10:00  AM  ★★★★★</a>
+            <!-- <div class="am-container">06-06-2023 10:00 am ★ ★ ★ ★ ★</div> -->
           </div>
           <div class="vector-container">
             <img class="vector-icon" alt="" src="./static/vector1.svg" />
-            <a href="#" onclick="showVideo()">07-06-2023 09:30 am ★ ★ ★ ★ ★</a>
+            <a href="#" onclick="showVideo2()">07-06-2023  09:30 AM  ★★★★</a>
             <!-- <div class="am-container">07-06-2023 09:30 am ★ ★ ★ ★ ★</div> -->
           </div>
           <div class="frame-div">
             <img class="vector-icon" alt="" src="./static/vector.svg" />
 
             <div class="am-container">
-
-              <span>08-06-2023 10:30 am ★ ★ </span>
+              <a href="#" onclick="showVideo3()">08-06-2023  09:30 AM   ★★★★★</a>
+              <!-- <span>08-06-2023 10:30 am ★ ★ </span>
               <span class="span1">★</span>
               <span> </span>
-              <span class="span1">★ ★</span>
+              <span class="span1">★ ★</span> -->
             </div>
           </div>
           <div class="vector-parent1">
             <img class="vector-icon" alt="" src="./static/vector1.svg" />
 
-            <div class="am-container"><a onclick="video()" id="myLink" href="https://www.youtube.com/embed/p6gNyoh3s10?start=3">09-06-2023 11:30 am ★ ★ ★ ★ ★</a></div>
+            <div class="am-container"><a onclick="showVideo4()" id="myLink" href="#">09-06-2023  11:30 AM  ★★★★★</a></div>
           </div>
         </div>
         <div class="name-surya-musunuri-parent">
@@ -223,8 +232,8 @@
             </span>
           </div>
         </div>
-        <div class="videos">videos</div>
-        <div class="am-video">05-06-2023 09:30 am video</div>
+ 
+        <div id="time" class="am-video">05-06-2023 09:30 am</div>
         <div class="frame-container">
           <div class="made-sale-in-parent">
             <div class="am-container">Made sale in</div>
@@ -237,14 +246,15 @@
               <span class="span1">★</span>
             </div>
           </div>
+          <div class="form-container">
           <form action="/upload_video" method="post" enctype="multipart/form-data">
             <input type="file" name="video_file">
-            <input type="text" id="emp_name" name="text_name" required /><br>
-            <input type="text" id="emp_rating" name="text_rating" required />
-            <input type="text" id="emp_sale" name="text_sale" required />           
-            <input type="submit" value="Upload">
+            <input style="display: none" type="text" id="emp_name" name="text_name"  required /><br>
+            <input style="display: none"  type="text" id="emp_rating" name="text_rating" required />
+            <input style="display: none" type="text" id="emp_sale" name="text_sale" required />           
+            <input class="sub" type="submit" value="Upload">
          </form>
-          
+          </div>
 
          
             <!-- 
@@ -327,9 +337,25 @@
   function showVideo() {
       var videoContainer = document.getElementById("video");
       videoContainer.src="https://www.youtube.com/embed/p6gNyoh3s10?start=3";
-    } 
+    }
+  function showVideo1() {
+      var videoContainer = document.getElementById("video");
+      videoContainer.src="https://www.youtube.com/embed/FnZZRG0ClsE";
+    }   
+  
+  function showVideo2() {
+      var videoContainer = document.getElementById("video");
+      videoContainer.src="https://www.youtube.com/embed/popXHMk3EX4";
+    }   
 
-      
+  function showVideo3() {
+      var videoContainer = document.getElementById("video");
+      videoContainer.src="https://www.youtube.com/embed/d8tq43J5ol0";
+    }      
+    function showVideo4() {
+      var videoContainer = document.getElementById("video");
+      videoContainer.src="https://www.youtube.com/embed/zn56t5jz43o";
+    }    
     // function video(){
     //   var link = document.getElementById("myLink");
     //   var href = link.href;
