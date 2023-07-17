@@ -1,12 +1,4 @@
-fastapi[all]
-jinja2
-tensorflow
-matplotlib
-urllib3
-opencv-python
-transformers
-torch
-SpeechRecognition
+
 pydub
 moviepy
 spectralcluster
