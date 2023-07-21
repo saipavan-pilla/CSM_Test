@@ -2,11 +2,11 @@
 pydub
 moviepy
 spectralcluster
-Resemblyzer
+resemblyzer
 pathlib
 nltk
 openai
-numpy
+numpy==1.20.0
 google-cloud-storage
 google-cloud-bigquery
 google-cloud-secret-manager

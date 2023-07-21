@@ -9,7 +9,7 @@ from moviepy.editor import VideoFileClip
 
 from pydub import AudioSegment
 from spectralcluster import SpectralClusterer
-from Resemblyzer import preprocess_wav, VoiceEncoder
+from resemblyzer import preprocess_wav, VoiceEncoder
 
 from pathlib import Path
 import os
