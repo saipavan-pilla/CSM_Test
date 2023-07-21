@@ -1,0 +1,5 @@
+webrtcvad
+typing
+scipy
+librosa
+struct
