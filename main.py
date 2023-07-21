@@ -9,7 +9,8 @@ from moviepy.editor import VideoFileClip
 
 from pydub import AudioSegment
 from spectralcluster import SpectralClusterer
-from resemblyzer import preprocess_wav, VoiceEncoder
+from Resemblyzer import preprocess_wav, VoiceEncoder
+
 from pathlib import Path
 import os
 
@@ -77,6 +78,10 @@ async def upload_video(request : Request, video_file: UploadFile = File(...),tex
 
     # Perform topic detection on the conversation
     recognizer = sr.Recognizer()
+
+
+
+
     with sr.AudioFile(audio_path) as source:
         audio = recognizer.record(source)
 
@@ -152,6 +157,7 @@ async def upload_video(request : Request, video_file: UploadFile = File(...),tex
 
     list=[]
     def split_audio(audio_file, labelling):
+        
         audio = AudioSegment.from_file(audio_file)
 
         for i, (label, start_time, end_time) in enumerate(labelling):
@@ -167,7 +173,8 @@ async def upload_video(request : Request, video_file: UploadFile = File(...),tex
             # print(f"Segment {i} saved as {output_file}")
 
     # Example usage
-    audio_file = "audio.wav"
+    audio_file = "audio.wav" 
+
     split_audio(audio_file, labelling)
 
 
