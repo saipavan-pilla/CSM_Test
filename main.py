@@ -23,7 +23,8 @@ import matplotlib.pyplot as plt
 import cv2
 from google.cloud import secretmanager
 from google.cloud import bigquery,storage
-
+import warnings
+warnings.filterwarnings("ignore")
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -126,6 +127,9 @@ async def upload_video(request : Request, video_file: UploadFile = File(...),tex
     predicted_topic_label = labels[predicted_topic]
 
    
+
+   #######
+
     wav_fpath = Path(audio_path) 
     wav = preprocess_wav(wav_fpath)
     encoder = VoiceEncoder("cpu")
@@ -137,6 +141,8 @@ async def upload_video(request : Request, video_file: UploadFile = File(...),tex
         max_clusters=100)
 
     labels = clusterer.predict(cont_embeds)
+
+
 
     def create_labelling(labels,wav_splits):
         from resemblyzer import sampling_rate
@@ -205,7 +211,9 @@ async def upload_video(request : Request, video_file: UploadFile = File(...),tex
         
     
 
-    
+    #####
+
+
     recognizer = sr.Recognizer()
     audio_file = "audio.wav"
 

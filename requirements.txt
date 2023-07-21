@@ -6,7 +6,7 @@ resemblyzer
 pathlib
 nltk
 openai
-numpy==1.20.0
+numpy
 google-cloud-storage
 google-cloud-bigquery
 google-cloud-secret-manager
