@@ -2,7 +2,6 @@
 pydub
 moviepy
 spectralcluster
-resemblyzer
 pathlib
 nltk
 openai
