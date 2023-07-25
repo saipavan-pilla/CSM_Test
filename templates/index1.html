@@ -250,15 +250,15 @@
           <div class="form-container">
           <form action="/upload_video" method="post" enctype="multipart/form-data">
             <input type="file" name="video_file">
-            <input style="display: none" type="text" id="emp_name" name="text_name"  required /><br>
-            <input style="display: none"  type="text" id="emp_rating" name="text_rating" required />
-            <input style="display: none" type="text" id="emp_sale" name="text_sale" required />           
+            <input style="" type="text" id="emp_name" name="text_name"  required /><br>
+            <input style=""  type="text" id="emp_rating" name="text_rating" required />
+            <input style="" type="text" id="emp_sale" name="text_sale" required />           
             <input class="sub" type="submit" value="Upload">
          </form>
           </div>
 
          
-            <!-- 
+      <!-- 
                               <form action="/upload_video" method="POST">
                                 <label for="name">Name:</label>
                                 <input type="text" id="name" name="name" value="Surya Musunuri" required />
@@ -379,7 +379,8 @@
         ratingElement.textContent = rating;
         saleElement.textContent = sale;
       }
-    // Get the name from surya-name-container and set it as the value of the name input field
+    
+      
     document.getElementById("emp_name").value = document.getElementById("Empname").textContent;
     document.getElementById("emp_rating").value = document.getElementById("Emprating").textContent;
     document.getElementById("emp_sale").value = document.getElementById("Empsale").textContent;

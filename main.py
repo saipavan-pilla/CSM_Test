@@ -74,6 +74,8 @@ async def upload_video(request : Request, video_file: UploadFile = File(...),tex
         video = VideoFileClip(video_path)
         audio = video.audio
         audio.write_audiofile(output_path)
+    
+
 
     audio_path = "audio.wav"
     extract_audio(video_path, audio_path)
@@ -184,9 +186,10 @@ async def upload_video(request : Request, video_file: UploadFile = File(...),tex
 
     split_audio(audio_file, labelling)
 
-
+    
     passage = [] 
     person="Sales-Person : "
+    
     for i in list:
         recognizer = sr.Recognizer()
 
@@ -205,10 +208,8 @@ async def upload_video(request : Request, video_file: UploadFile = File(...),tex
                 passage.append(text)
             except sr.UnknownValueError:
                 pass
-                #print("Speech recognition could not understand audio.")
             except sr.RequestError as e:
                 pass
-                #print("Could not request results from the speech recognition service; {0}".format(e))
         
     
 
@@ -245,7 +246,7 @@ async def upload_video(request : Request, video_file: UploadFile = File(...),tex
         emotion='negative'
     text=text+'.Here the emotion of the customer and the sales person is '+emotion
     text=text+'.Give us the final summary of the emotion shown by the customer to the sales person and vice versa'
-    openai.api_key = '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'
+    openai.api_key = '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'
     
     # # Create a client
     # client = secretmanager.SecretManagerServiceClient()
