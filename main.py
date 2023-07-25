@@ -17,7 +17,7 @@ import os
 
 import nltk
 import openai
-
+from googletrans import Translator
 import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
@@ -186,32 +186,40 @@ async def upload_video(request : Request, video_file: UploadFile = File(...),tex
 
     split_audio(audio_file, labelling)
 
+    def translate_text(text, target_language='en'):
+        translator = Translator()
+        translated_text = translator.translate(text, dest=target_language)
+        return translated_text.text
+
     
     passage = [] 
     person="Sales-Person : "
-    
+        
+        
     for i in list:
         recognizer = sr.Recognizer()
 
-        audio_file =i
+        audio_file = i
 
         with sr.AudioFile(audio_file) as source:
             audio = recognizer.record(source)
 
             try:
-                text=person
-                text = text+recognizer.recognize_google(audio)
-                if person=="Sales-Person : ":
-                   person="Customer : "
+                text = person
+                text = text + recognizer.recognize_google(audio)
+                if person == "Sales-Person: ":
+                    person = "Customer: "
                 else:
-                   person="Sales-Person : "
-                passage.append(text)
+                    person = "Sales-Person: "
+                    
+                # Translate the text to English
+                translated_text = translate_text(text, target_language='en')
+                passage.append(translated_text)
             except sr.UnknownValueError:
                 pass
             except sr.RequestError as e:
                 pass
         
-    
 
     #####
 
@@ -246,7 +254,7 @@ async def upload_video(request : Request, video_file: UploadFile = File(...),tex
         emotion='negative'
     text=text+'.Here the emotion of the customer and the sales person is '+emotion
     text=text+'.Give us the final summary of the emotion shown by the customer to the sales person and vice versa'
-    openai.api_key = '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'
+    openai.api_key = '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'
     
     # # Create a client
     # client = secretmanager.SecretManagerServiceClient()
