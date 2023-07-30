@@ -64,9 +64,6 @@ async def upload_video(request : Request, video_file: UploadFile = File(...),tex
     blob.upload_from_filename(video_path)
 
 
-
-
-
     with open(video_path, "wb") as f:
         f.write(await video_file.read())
 
@@ -254,7 +251,7 @@ async def upload_video(request : Request, video_file: UploadFile = File(...),tex
         emotion='negative'
     text=text+'.Here the emotion of the customer and the sales person is '+emotion
     text=text+'.Give us the final summary of the emotion shown by the customer to the sales person and vice versa'
-    openai.api_key = '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'
+    openai.api_key = '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'
     
     # # Create a client
     # client = secretmanager.SecretManagerServiceClient()
@@ -435,6 +432,9 @@ async def upload_video(request : Request, video_file: UploadFile = File(...),tex
         "predicted_topic": predicted_topic_label,
         "passage":passage,
         "response":response,
+        "text_name":text_name,
+        "text_rating":text_rating,
+        "text_sale":text_sale
     }
 
 

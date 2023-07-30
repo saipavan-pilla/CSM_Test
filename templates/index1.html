@@ -366,25 +366,23 @@
     //   var href = link.href;
     //   document.getElementById("video").src=href;      
     // }      
-
+    
+    document.getElementById("emp_name").value = document.getElementById("Empname").innerHTML;
+    document.getElementById("emp_rating").value = document.getElementById("Emprating").innerHTML;
+    document.getElementById("emp_sale").value = document.getElementById("Empsale").innerHTML; 
     function updateName(name,hired,rating,sale) {
-        const nameContainer = document.querySelector(".name-surya-musunuri-parent");
-        const nameElement = nameContainer.querySelector("#Empname");
-        const hiredElement = nameContainer.querySelector("#Emphired");
-        const ratingElement = nameContainer.querySelector("#Emprating");
-        const saleElement = nameContainer.querySelector("#Empsale");
-
-        nameElement.textContent = name;
-        hiredElement.textContent = hired;
-        ratingElement.textContent = rating;
-        saleElement.textContent = sale;
+        document.getElementById('Empname').innerHTML=name;
+        document.getElementById('Emphired').innerHTML=hired;
+        document.getElementById('Emprating').innerHTML=rating;
+        document.getElementById('Empsale').innerHTML=sale;
+        document.getElementById("emp_name").value = document.getElementById("Empname").innerHTML;
+        document.getElementById("emp_rating").value = document.getElementById("Emprating").innerHTML;
+        document.getElementById("emp_sale").value = document.getElementById("Empsale").innerHTML; 
       }
+                                  
     
       
-    document.getElementById("emp_name").value = document.getElementById("Empname").textContent;
-    document.getElementById("emp_rating").value = document.getElementById("Emprating").textContent;
-    document.getElementById("emp_sale").value = document.getElementById("Empsale").textContent;
-                            
+   
     let slideIndex = 0;
     showSlides();
     
@@ -414,8 +412,6 @@
       event.preventDefault();
       const videoUrl = iframe.getAttribute("src");
       videoUrlInput.value = videoUrl;
-      // Add your logic to process the video URL here
-      // For example, you can submit the form to a server or perform any other action
     });
   });
     </script>
