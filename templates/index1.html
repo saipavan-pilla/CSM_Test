@@ -164,26 +164,26 @@
             <img class="vector-icon" alt="" src="./static/vector.svg" />
 
             <div class="am-container">
-              <a href="#" onclick="showVideo()">05-06-2023  09:30 AM  ★★★★</a>
+              <a href="#" id="sv" onclick="showVideo()">05-06-2023  09:30 AM  ★★★★</a>
               <!-- <span>05-06-2023 09:30 am ★ ★ ★ ★ </span> -->
               <!-- <span class="span1">★</span> -->
             </div>
           </div>
           <div class="vector-group">
             <img class="vector-icon" alt="" src="./static/vector1.svg" />
-            <a href="#" onclick="showVideo1()">06-06-2023 10:00  AM  ★★★★★</a>
+            <a href="#" id="sv1" onclick="showVideo1()">06-06-2023 10:00  AM  ★★★★★</a>
             <!-- <div class="am-container">06-06-2023 10:00 am ★ ★ ★ ★ ★</div> -->
           </div>
           <div class="vector-container">
             <img class="vector-icon" alt="" src="./static/vector1.svg" />
-            <a href="#" onclick="showVideo2()">07-06-2023  09:30 AM  ★★★★</a>
+            <a href="#" id="sv2" onclick="showVideo2()">07-06-2023  09:30 AM  ★★★★</a>
             <!-- <div class="am-container">07-06-2023 09:30 am ★ ★ ★ ★ ★</div> -->
           </div>
           <div class="frame-div">
             <img class="vector-icon" alt="" src="./static/vector.svg" />
 
             <div class="am-container">
-              <a href="#" onclick="showVideo3()">08-06-2023  09:30 AM   ★★★★★</a>
+              <a href="#" id="sv3" onclick="showVideo3()">08-06-2023  09:30 AM   ★★★★★</a>
               <!-- <span>08-06-2023 10:30 am ★ ★ </span>
               <span class="span1">★</span>
               <span> </span>
@@ -234,11 +234,11 @@
           </div>
         </div>
  
-        <div id="time" class="am-video">05-06-2023 09:30 am</div>
+        <div class="am-video" id="time">05-06-2023 09:30 am</div>
         <div class="frame-container">
           <div class="made-sale-in-parent">
             <div class="am-container">Made sale in</div>
-            <div class="mins">30 Mins</div>
+            <div class="mins" id="mins">30 Mins</div>
           </div>
           <div class="performance-parent">
             <div class="am-container">Performance</div>
@@ -250,9 +250,9 @@
           <div class="form-container">
           <form action="/upload_video" method="post" enctype="multipart/form-data">
             <input type="file" name="video_file">
-            <input style="" type="text" id="emp_name" name="text_name"  required /><br>
-            <input style=""  type="text" id="emp_rating" name="text_rating" required />
-            <input style="" type="text" id="emp_sale" name="text_sale" required />           
+            <input style="display: none;" type="text" id="emp_name" name="text_name"  required /><br>
+            <input style="display: none;"  type="text" id="emp_rating" name="text_rating" required />
+            <input style="display: none;" type="text" id="emp_sale" name="text_sale" required />           
             <input class="sub" type="submit" value="Upload">
          </form>
           </div>
@@ -339,23 +339,39 @@
   </body>
   <script>
 
+  showVideo();  
+
   function showVideo() {
       var videoContainer = document.getElementById("video");
       videoContainer.src="https://drive.google.com/file/d/1zjpSmTW80e_abW--uS-lhHRNhoLqObtp/preview";
+
+      const svElement = document.getElementById("sv");
+      const timeElement = document.getElementById('time');
+      timeElement.textContent = svElement.innerHTML;
     }
   function showVideo1() {
       var videoContainer = document.getElementById("video");
       videoContainer.src="https://drive.google.com/file/d/13m4ZNfJ57wkE29yD9oWmA94jm_r0HN32/preview";
+      const sv1Element = document.getElementById("sv1");
+      const timeElement = document.getElementById('time');
+      timeElement.textContent = sv1Element.innerHTML;
     }   
   
   function showVideo2() {
       var videoContainer = document.getElementById("video");
       videoContainer.src="https://drive.google.com/file/d/13dVdNWJFll1Y9aV82S6zuUkthqJCzEcD/preview";
+    
+      const sv2Element = document.getElementById("sv2");
+      const timeElement = document.getElementById('time');
+      timeElement.textContent = sv2Element.innerHTML;
     }   
 
   function showVideo3() {
       var videoContainer = document.getElementById("video");
       videoContainer.src="https://drive.google.com/file/d/13kMPrrDILxXL15q9lsmt8V6rJTSh4IHR/preview";
+      const sv3Element = document.getElementById("sv3");
+      const timeElement = document.getElementById('time');
+      timeElement.textContent = sv3Element.innerHTML;
     }      
     function showVideo4() {
       var videoContainer = document.getElementById("video");
@@ -414,5 +430,24 @@
       videoUrlInput.value = videoUrl;
     });
   });
+
+  
+  
+  function handleVideoDuration(durationInSeconds) {
+    const minutes = Math.floor(durationInSeconds / 60);
+    const seconds = Math.floor(durationInSeconds % 60);
+    const minsElement = document.getElementById(".mins");
+    minsElement.innerHTML = `${minutes} mins ${seconds} secs`;
+  }
+
+  function requestVideoDuration() {
+    const iframe = document.getElementById("video");
+    iframe.contentWindow.postMessage("getVideoDuration", "*");
+  }
+
+  function getVideoDuration() {
+    requestVideoDuration();
+  }
+
     </script>
 </html>
