@@ -6,3 +6,4 @@ scipy>=1.2.1
 langdetect
 google-cloud-translate
 googletrans==4.0.0-rc1
+PyQt5
