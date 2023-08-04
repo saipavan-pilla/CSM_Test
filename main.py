@@ -11,6 +11,8 @@ from pydub import AudioSegment
 from spectralcluster import SpectralClusterer
 from resemblyzer import preprocess_wav, VoiceEncoder
 
+# from dotenv import load_dotenv
+# load_dotenv()
 
 from pathlib import Path
 import os
@@ -251,7 +253,8 @@ async def upload_video(request : Request, video_file: UploadFile = File(...),tex
         emotion='negative'
     text=text+'.Here the emotion of the customer and the sales person is '+emotion
     text=text+'.Give us the final summary of the emotion shown by the customer to the sales person and vice versa'
-    openai.api_key = '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'
+    #api_key = os.getenv("API_KEY")
+    openai.api_key = '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'
     
     # # Create a client
     # client = secretmanager.SecretManagerServiceClient()
