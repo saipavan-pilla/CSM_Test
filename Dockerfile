@@ -5,6 +5,7 @@ RUN pip install -r requirements.txt
 RUN pip install -r requirements1.txt
 RUN pip install -r requirements2.txt
 RUN pip install -r requirements3.txt
+RUN pip install -r requirements4.txt
 CMD ["uvicorn","main:app","--reload","--host","0.0.0.0","--port","8000"]
 
 

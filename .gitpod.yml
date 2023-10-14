@@ -7,4 +7,7 @@
 tasks:
   - init: pip install -r requirements.txt
   - init: pip install -r requirements1.txt
+  - init: pip install -r requirements2.txt
+  - init: pip install -r requirements3.txt
+  - init: pip install -r requirements4.txt
     # command: npm run start
